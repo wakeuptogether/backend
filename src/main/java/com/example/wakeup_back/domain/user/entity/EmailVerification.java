@@ -25,6 +25,7 @@ public class EmailVerification {
     @Column(nullable = false)
     private LocalDateTime expireAt;
 
+    @Builder.Default  // 추가
     @Column(nullable = false)
     private boolean verified = false;
 
