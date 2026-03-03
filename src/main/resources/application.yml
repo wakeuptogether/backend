@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://hopper.proxy.rlwy.net:10472/railway?serverTimezone=Asia/Seoul
-    username: root
-    password: hrVYuZXmHzfVjwnXUJJtbugCYDUsOSXM
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: none
@@ -14,8 +14,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: qlalfql123@gmail.com
-    password: maxxrdxwsdstcnyp
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -24,5 +24,5 @@ spring:
             enable: true
 
 jwt:
-  secret: K8vX2mN9pQ3rT5tY7Wa1bC4dE6lG0hI!
+  secret: ${JWT_SECRET}
   expiration: 86400000
