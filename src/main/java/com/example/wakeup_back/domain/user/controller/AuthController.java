@@ -35,8 +35,7 @@ public class AuthController {
 
     // 회원가입
     @PostMapping("/signup")
-    public String signup(@RequestBody SignupRequest request) {
-        authService.signup(request);
-        return "회원가입 성공";
+    public AuthResponse signup(@RequestBody SignupRequest request) {  // ResponseEntity<Void> → AuthResponse
+        return authService.signup(request);
     }
 }

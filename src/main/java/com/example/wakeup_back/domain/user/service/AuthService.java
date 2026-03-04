@@ -21,7 +21,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public void signup(SignupRequest request) {
+    public AuthResponse signup(SignupRequest request) {  // void → AuthResponse
         userRepository.findByEmail(request.getEmail())
                 .ifPresent(user -> {
                     throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
@@ -37,11 +37,21 @@ public class AuthService {
 
         User user = User.builder()
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword())) // BCrypt 암호화
+                .password(passwordEncoder.encode(request.getPassword()))
                 .name(request.getName())
                 .build();
 
         userRepository.save(user);
+
+        // 회원가입 후 바로 토큰 반환
+        String token = jwtTokenProvider.createToken(user.getId(), user.getEmail());
+
+        return AuthResponse.builder()
+                .userId(user.getId())
+                .token(token)
+                .name(user.getName())
+                .email(user.getEmail())
+                .build();
     }
 
     public AuthResponse login(LoginRequest request) {
